@@ -50,10 +50,6 @@ public class DeployController {
 
     }
 
-    @GetMapping("/queryDeployFileList")
-    public void queryDeployFileList() {
-    }
-
     @PutMapping("/addDeployPath")
     public void addDeployPath(String Path) {
 

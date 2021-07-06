@@ -17,8 +17,6 @@ public interface DeployService {
 
     void rollbackApp(String verison);
 
-    void queryDeployFileList();
-
     void addDeployPath(String Path);
 
 }

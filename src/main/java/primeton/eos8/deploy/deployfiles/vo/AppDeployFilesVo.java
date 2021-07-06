@@ -1,16 +1,14 @@
 package primeton.eos8.deploy.deployfiles.vo;
 
+import java.util.List;
+
 public class AppDeployFilesVo {
-    private Integer id;
+    private List<Integer> id;
     private String appName;
-    private String savePath;
+    private List<String> savePath;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public AppDeployFilesVo(String appName) {
+        this.appName = appName;
     }
 
     public String getAppName() {
@@ -21,11 +19,19 @@ public class AppDeployFilesVo {
         this.appName = appName;
     }
 
-    public String getSavePath() {
+    public List<Integer> getId() {
+        return id;
+    }
+
+    public void setId(List<Integer> id) {
+        this.id = id;
+    }
+
+    public List<String> getSavePath() {
         return savePath;
     }
 
-    public void setSavePath(String savePath) {
+    public void setSavePath(List<String> savePath) {
         this.savePath = savePath;
     }
 }

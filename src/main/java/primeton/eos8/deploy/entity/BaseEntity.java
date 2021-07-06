@@ -12,7 +12,7 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @Column(name = "create_time")
     @CreationTimestamp
@@ -28,11 +28,11 @@ public class BaseEntity {
     private Date modifiedTime;
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        id = id;
     }
 
     public Date getCreateTime() {

@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import primeton.eos8.deploy.entity.DeployFilesEntity;
 
+import java.util.List;
+
 @Repository
 public interface DeployFilesRepository extends JpaRepository<DeployFilesEntity,Integer> {
-    DeployFilesEntity findByAppName(String appName);
+    List<DeployFilesEntity> findByAppNameOrderByIdDesc(String appName);
 }

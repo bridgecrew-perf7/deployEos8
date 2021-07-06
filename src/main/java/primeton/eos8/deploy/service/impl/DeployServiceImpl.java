@@ -14,6 +14,8 @@ import primeton.eos8.deploy.service.DeployService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DeployServiceImpl implements DeployService {
@@ -25,7 +27,7 @@ public class DeployServiceImpl implements DeployService {
     @Transactional
     @Override
     public void uploadFile(MultipartFile file, String appName) throws IOException {
-        String savePath = PathConfig.path + "/" + file.getOriginalFilename();
+        String savePath = PathConfig.path + "/" + System.currentTimeMillis() + file.getOriginalFilename();
         logger.info("fileName:" + file.getOriginalFilename() + "appName:" + appName + "savePath:" + savePath);
         file.transferTo(new File(savePath));
         DeployFilesEntity deployFiles = new DeployFilesEntity();
@@ -36,11 +38,16 @@ public class DeployServiceImpl implements DeployService {
 
     @Override
     public AppDeployFilesVo getAppDeployFiles(String appName) {
-        DeployFilesEntity deployFiles = deployFilesRepository.findByAppName(appName);
-        AppDeployFilesVo appDeployFilesVo = new AppDeployFilesVo();
-        appDeployFilesVo.setAppName(deployFiles.getAppName());
-        appDeployFilesVo.setId(deployFiles.getId());
-        appDeployFilesVo.setSavePath(deployFiles.getSavePath());
+        List<DeployFilesEntity> deployFiles = deployFilesRepository.findByAppNameOrderByIdDesc(appName);
+        AppDeployFilesVo appDeployFilesVo = new AppDeployFilesVo(appName);
+        List<Integer> appId = new ArrayList<>();
+        List<String> appPath = new ArrayList<>();
+        for (DeployFilesEntity deployFile : deployFiles) {
+            appId.add(deployFile.getId());
+            appPath.add(deployFile.getSavePath());
+        }
+        appDeployFilesVo.setId(appId);
+        appDeployFilesVo.setSavePath(appPath);
         return appDeployFilesVo;
     }
 
@@ -56,11 +63,6 @@ public class DeployServiceImpl implements DeployService {
 
     @Override
     public void rollbackApp(String verison) {
-
-    }
-
-    @Override
-    public void queryDeployFileList() {
 
     }
 
