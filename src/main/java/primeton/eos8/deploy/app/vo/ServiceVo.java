@@ -1,4 +1,4 @@
-package primeton.eos8.deploy.vo;
+package primeton.eos8.deploy.app.vo;
 
 import java.util.List;
 

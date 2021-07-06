@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 
 @ControllerAdvice
@@ -20,6 +21,14 @@ public class GlobalControllerExceptionHandler {
     @ResponseBody
     public ResponseEntity<String> parameterErrorHandler(HttpServletRequest req, IllegalArgumentException e) {
         ResponseEntity responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(value = IOException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<String> IOErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        ResponseEntity responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
         return responseEntity;
     }
 
