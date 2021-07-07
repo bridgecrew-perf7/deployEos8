@@ -3,10 +3,11 @@ package primeton.eos8.deploy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import primeton.eos8.deploy.deployfiles.vo.AppDeployFilesVo;
+import primeton.eos8.deploy.commons.beans.ResultBean;
+import primeton.eos8.deploy.vo.deployvo.AppDeployFilesVo;
 import primeton.eos8.deploy.service.DeployService;
 
-import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/deploy")
@@ -15,33 +16,22 @@ public class DeployController {
     private DeployService deployService;
 
     @PostMapping("/deployFileUpload")
-    public void upload(@RequestParam("file") MultipartFile file,@RequestParam String appName) {
-        if (file == null) {
-            throw new IllegalArgumentException();
-        } else {
-            try {
-                deployService.uploadFile(file,appName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public ResultBean<Boolean> upload(@RequestParam("file") MultipartFile file, @RequestParam String appName) {
+        return new ResultBean<Boolean>(deployService.uploadFile(file, appName));
     }
 
     @GetMapping("/getAppDeployFiles/appName/{appName}")
-    public AppDeployFilesVo getAppDeployFiles(@PathVariable String appName) {
-        if (appName.isEmpty()){
-            throw new IllegalArgumentException();
-        }else {
-            return deployService.getAppDeployFiles(appName);
-        }
+    public ResultBean<AppDeployFilesVo> getAppDeployFiles(@PathVariable String appName) {
+        return new ResultBean<AppDeployFilesVo>(deployService.getAppDeployFiles(appName));
     }
+
+    @PostMapping("/deleteDeployFiles")
+    public ResultBean<Boolean> deleteDeployFiles(@RequestBody List<Integer> ids) {
+        return new ResultBean<Boolean>(deployService.deleteDeployFiles(ids));
+    }
+
     @PostMapping("/deployApp")
     public void deployApp(@PathVariable("appName") String appName, String[] ip) {
-
-    }
-
-    @DeleteMapping("/deleteDeploy")
-    public void deleteDeloy() {
 
     }
 
@@ -54,6 +44,4 @@ public class DeployController {
     public void addDeployPath(String Path) {
 
     }
-
-
 }

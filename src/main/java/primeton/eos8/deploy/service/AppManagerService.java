@@ -1,6 +1,6 @@
 package primeton.eos8.deploy.service;
 
-import primeton.eos8.deploy.app.vo.ServiceVo;
+import primeton.eos8.deploy.vo.appvo.ServiceVo;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import primeton.eos8.deploy.service.AppManagerService;
-import primeton.eos8.deploy.app.vo.ServiceVo;
+import primeton.eos8.deploy.vo.appvo.ServiceVo;
 
 import java.util.ArrayList;
 import java.util.List;

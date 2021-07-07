@@ -2,18 +2,19 @@ package primeton.eos8.deploy.service;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
-import primeton.eos8.deploy.deployfiles.vo.AppDeployFilesVo;
+import primeton.eos8.deploy.vo.deployvo.AppDeployFilesVo;
 
-import java.io.IOException;
+import java.util.List;
+
 
 public interface DeployService {
-    void uploadFile(MultipartFile files,String appName) throws IOException;
+    Boolean uploadFile(MultipartFile files, String appName);
 
     AppDeployFilesVo getAppDeployFiles(@PathVariable String appName);
 
     void deployApp(String appName, String[] ip);
 
-    void deleteDeloy();
+    Boolean deleteDeployFiles(List<Integer> ids);
 
     void rollbackApp(String verison);
 
