@@ -9,9 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import primeton.eos8.deploy.commons.beans.ResultBean;
 import primeton.eos8.deploy.commons.exception.CheckException;
+import primeton.eos8.deploy.commons.exception.NoPermissionException;
 import primeton.eos8.deploy.commons.exception.UnloginException;
-
-import javax.naming.NoPermissionException;
 
 
 /**
