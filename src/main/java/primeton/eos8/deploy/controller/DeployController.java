@@ -10,13 +10,13 @@ import primeton.eos8.deploy.service.DeployService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/deploy")
+@RequestMapping("/api/deploy")
 public class DeployController {
     @Autowired
     private DeployService deployService;
 
-    @PostMapping("/deployFileUpload")
-    public ResultBean<Boolean> upload(@RequestParam("file") MultipartFile file, @RequestParam String appName) {
+    @PutMapping("/deployFileUpload/appName/{appName}")
+    public ResultBean<Boolean> upload(@RequestParam("file") MultipartFile file, @PathVariable String appName) {
         return new ResultBean<Boolean>(deployService.uploadFile(file, appName));
     }
 
@@ -25,7 +25,7 @@ public class DeployController {
         return new ResultBean<AppDeployFilesVo>(deployService.getAppDeployFiles(appName));
     }
 
-    @PostMapping("/deleteDeployFiles")
+    @PostMapping ("/deleteDeployFiles")
     public ResultBean<Boolean> deleteDeployFiles(@RequestBody List<Integer> ids) {
         return new ResultBean<Boolean>(deployService.deleteDeployFiles(ids));
     }

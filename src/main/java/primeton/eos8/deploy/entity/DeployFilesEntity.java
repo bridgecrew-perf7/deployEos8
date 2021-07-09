@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table(name = "t_deploy_files")
 public class DeployFilesEntity extends BaseEntity{
 
-    @Column(name = "appname")
+    @Column
     private String appName;
 
-    @Column(name = "savepath")
+    @Column
     private String savePath;
 
     public String getAppName() {

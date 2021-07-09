@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
+import primeton.eos8.deploy.dao.DeployAppRepository;
+import primeton.eos8.deploy.entity.DeployAppEntity;
 import primeton.eos8.deploy.service.AppManagerService;
 import primeton.eos8.deploy.vo.appvo.ServiceVo;
 
@@ -11,10 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AppManagerServiceEurekaImpl implements AppManagerService {
+public class AppManagerServiceImpl implements AppManagerService {
 
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @Autowired
+    private DeployAppRepository deployAppRepository;
 
     @Override
     public List<ServiceVo> queryDepolyAppListOfEureka() {
@@ -35,5 +40,31 @@ public class AppManagerServiceEurekaImpl implements AppManagerService {
             }
         }
         return serviceVos;
+    }
+
+    @Override
+    public Boolean addDeployApp(String appName, String deployPath) {
+        DeployAppEntity app = new DeployAppEntity();
+        app.setAppName(appName);
+        app.setDeloyPath(deployPath);
+        deployAppRepository.save(app);
+        return true;
+    }
+
+    @Override
+    public Boolean updateDeployApp(DeployAppEntity deployAppEntity) {
+        deployAppRepository.saveAndFlush(deployAppEntity);
+        return true;
+    }
+
+    @Override
+    public List<DeployAppEntity> queryDepolyAppList() {
+        return deployAppRepository.findAll();
+    }
+
+    @Override
+    public Boolean deleteDepoyApp(List<Integer> ids) {
+        deployAppRepository.deleteAllById(ids);
+        return true;
     }
 }
